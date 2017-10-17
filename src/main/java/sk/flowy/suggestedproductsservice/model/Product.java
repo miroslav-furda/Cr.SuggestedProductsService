@@ -24,18 +24,26 @@ public class Product implements Serializable {
     private String name;
 
     @Column(name = "nazov_clear")
-    private String name_clear;
+    private String nameClear;
 
     @Column(name = "aktivny")
-    private boolean active;
-    private boolean weighted;
-    private int nonBlockable;
-    private Timestamp created_at;
-    private Timestamp updated_at;
-    private Timestamp deleted_at;
+    private Boolean active;
+
+    private Boolean weighted;
+
+    @Column(name = "nonBlockable")
+    private Integer nonBlockable;
+
+    @Column(name = "created_at")
+    private Timestamp created;
+
+    @Column(name = "updated_at")
+    private Timestamp updated;
+
+    @Column(name = "deleted_at")
+    private Timestamp deleted;
 
     public Product(String name) {
         this.name = name;
     }
-    
 }
