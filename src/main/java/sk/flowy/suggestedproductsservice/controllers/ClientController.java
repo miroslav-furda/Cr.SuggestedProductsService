@@ -24,7 +24,6 @@ public class ClientController {
     @RequestMapping(value = "/products", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Product>> readProducts() {
 
-        log.info("repository = " + productRepository);
         return new ResponseEntity<>(productRepository.readProducts(), HttpStatus.OK);
     }
 }
