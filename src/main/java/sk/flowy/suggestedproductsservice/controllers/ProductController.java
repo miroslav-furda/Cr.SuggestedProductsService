@@ -1,4 +1,4 @@
-package sk.flowy.nofindproduct.controllers;
+package sk.flowy.suggestedproductsservice.controllers;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +14,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("/no-find-product")
+@RequestMapping("/api")
 @Log4j
-public class NoFindProductClientController {
-
-    private ProductRepository productRepository;
+public class ProductController {
 
     @Autowired
-    public NoFindProductClientController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private ProductRepository productRepository;
 
-    @RequestMapping(value = "/new-product", method = POST, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/product", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> createNewProduct(@RequestBody Product product) {
         productRepository.save(product);
+        log.info("Product was saved into database");
         return new ResponseEntity<>(product, OK);
     }
 }
