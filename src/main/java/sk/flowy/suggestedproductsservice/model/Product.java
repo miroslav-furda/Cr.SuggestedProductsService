@@ -1,15 +1,14 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,7 +16,7 @@ import java.sql.Timestamp;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "nazov")
@@ -43,7 +42,21 @@ public class Product implements Serializable {
     @Column(name = "deleted_at")
     private Timestamp deleted;
 
-    public Product(String name) {
-        this.name = name;
+    @OneToMany(mappedBy = "product")
+    private List<Ean> eans;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id != null ? id.equals(product.id) : product.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
