@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Ean entity representing ean table from database.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

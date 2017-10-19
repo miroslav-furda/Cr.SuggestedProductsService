@@ -1,6 +1,6 @@
 package sk.flowy.suggestedproductsservice.utils;
 
-import sk.flowy.suggestedproductsservice.model.FoundProduct;
+import sk.flowy.suggestedproductsservice.model.ReceiptProduct;
 import sk.flowy.suggestedproductsservice.model.Product;
 
 /**
@@ -8,12 +8,13 @@ import sk.flowy.suggestedproductsservice.model.Product;
  */
 public class ProductUtils {
 
+    /**
+     * Intentionally empty private constructor
+     */
     private ProductUtils() {
-        // intentionally empty private constructor
     }
 
-    public static FoundProduct convertProduct(Product product) {
-        return new FoundProduct(product.getId(), product.getName(), product.getEans(), 0.0,
-                0.0);
+    public static ReceiptProduct convertProduct(Product product) {
+        return new ReceiptProduct(product.getId(), product.getName(), product.getEans());
     }
 }

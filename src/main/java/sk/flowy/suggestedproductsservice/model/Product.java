@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Product entity representing produkt table from database.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
