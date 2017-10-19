@@ -1,13 +1,14 @@
 package sk.flowy.suggestedproductsservice.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -42,6 +43,10 @@ public class Product implements Serializable {
 
     @Column(name = "deleted_at")
     private Timestamp deleted;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Ean> eans;
 
     public Product(String name) {
         this.name = name;
