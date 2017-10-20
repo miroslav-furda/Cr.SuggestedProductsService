@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateNewProduct {
+public class NewProduct {
 
     private List<String> ean;
     private String name;
