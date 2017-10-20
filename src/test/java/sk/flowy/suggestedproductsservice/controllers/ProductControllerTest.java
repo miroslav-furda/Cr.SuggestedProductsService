@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import sk.flowy.suggestedproductsservice.model.Ean;
 import sk.flowy.suggestedproductsservice.model.Product;
 import sk.flowy.suggestedproductsservice.model.ReceiptProduct;
-import sk.flowy.suggestedproductsservice.security.CallResponse;
+import sk.flowy.suggestedproductsservice.model.CallResponse;
 import sk.flowy.suggestedproductsservice.security.TokenRepository;
 import sk.flowy.suggestedproductsservice.services.EanService;
 

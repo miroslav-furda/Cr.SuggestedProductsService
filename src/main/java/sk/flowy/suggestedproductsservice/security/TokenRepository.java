@@ -1,5 +1,7 @@
 package sk.flowy.suggestedproductsservice.security;
 
+import sk.flowy.suggestedproductsservice.model.CallResponse;
+
 /**
  * Retrieves information about validity of token input.
  */

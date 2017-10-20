@@ -48,6 +48,9 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private List<Ean> eans;
 
+    @ManyToMany(mappedBy = "products")
+    private List<Supplier> suppliers;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
