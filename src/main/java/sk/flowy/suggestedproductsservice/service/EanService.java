@@ -1,4 +1,4 @@
-package sk.flowy.suggestedproductsservice.services;
+package sk.flowy.suggestedproductsservice.service;
 
 import sk.flowy.suggestedproductsservice.model.ReceiptProduct;
 

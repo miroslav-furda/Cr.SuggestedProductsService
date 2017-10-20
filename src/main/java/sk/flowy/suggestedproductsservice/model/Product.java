@@ -1,6 +1,9 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,7 +32,7 @@ public class Product implements Serializable {
     private String nameClear;
 
     @Column(name = "aktivny")
-    private Boolean active;
+    private Integer active;
 
     private Boolean weighted;
 
@@ -64,5 +67,9 @@ public class Product implements Serializable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public Product(String name) {
+        this.name = name;
     }
 }
