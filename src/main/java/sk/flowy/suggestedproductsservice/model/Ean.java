@@ -1,16 +1,14 @@
 package sk.flowy.suggestedproductsservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,11 +23,7 @@ public class Ean implements Serializable {
     private String value;
 
     @Column(name = "typ")
-    @NonNull
     private String type;
-
-    @Column(name = "id_produkt")
-    private Integer idProduct;
 
     @Column(name = "created_at")
     private Timestamp created;
@@ -40,8 +34,8 @@ public class Ean implements Serializable {
     @Column(name = "deleted_at")
     private Timestamp deleted;
 
-    @ManyToOne
-    @JoinColumn(name = "id_produkt", insertable = false, updatable = false)
+    @ManyToOne()
+    @JoinColumn(name = "id_produkt")
     @JsonBackReference
     private Product product;
 }

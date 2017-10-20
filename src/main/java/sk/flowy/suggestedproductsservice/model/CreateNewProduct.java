@@ -1,16 +1,17 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateNewProduct {
 
-    private String eanNumber;
-    private String productName;
-    private String contractorName;
+    private List<String> ean;
+    private String name;
+    private Integer supplier;
     private String picture;
 }

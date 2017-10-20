@@ -2,15 +2,17 @@ package sk.flowy.suggestedproductsservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,7 +30,7 @@ public class Product implements Serializable {
     private String nameClear;
 
     @Column(name = "aktivny")
-    private Boolean active;
+    private Integer active;
 
     private Boolean weighted;
 
