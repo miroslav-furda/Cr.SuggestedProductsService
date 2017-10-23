@@ -42,9 +42,7 @@ public class SupplierServiceImpl implements SupplierService {
             return new CallResponse(null, "Product is already connected to the supplier.");
         }
 
-        product.getSuppliers().add(supplier);
         supplier.getProducts().add(product);
-
         supplierRepository.save(supplier);
 
         return new CallResponse("Product is successfully connected to the supplier", null);
