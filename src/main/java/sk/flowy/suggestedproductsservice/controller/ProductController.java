@@ -3,7 +3,6 @@ package sk.flowy.suggestedproductsservice.controller;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +53,7 @@ public class ProductController {
         return new ResponseEntity<>(product, OK);
     }
 
-    @RequestMapping(value = "/product/{ean}", method = GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/product/{ean}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptProduct> getProductByEan(@PathVariable("ean") String ean) {
         log.info("Searching for product by ean " + ean);
         ReceiptProduct product = eanService.getProductByEan(ean);
@@ -66,8 +65,8 @@ public class ProductController {
         return new ResponseEntity<>(product, OK);
     }
 
-    @RequestMapping(value = "/product/supplier", method = POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CallResponse> addProductToDeliverer(@RequestBody ProductSupplierWrapper
+    @RequestMapping(value = "/product/supplier", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CallResponse> addProductToSupplier(@RequestBody ProductSupplierWrapper
                                                                       productSupplierWrapper) {
         CallResponse callResponse = supplierService.addProductToSupplier(productSupplierWrapper.getProductId(),
                 productSupplierWrapper.getDelivererId());

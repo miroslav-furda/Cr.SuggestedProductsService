@@ -48,9 +48,9 @@ public class Supplier {
     private Integer active;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "dodavatel_produkt", joinColumns = @JoinColumn(name = "id_produkt", referencedColumnName =
+    @JoinTable(name = "dodavatel_produkt", joinColumns = @JoinColumn(name = "id_dodavatel", referencedColumnName =
             "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_dodavatel", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "id_produkt", referencedColumnName = "id"))
     private List<Product> products;
 
     @Override
