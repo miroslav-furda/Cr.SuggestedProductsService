@@ -1,6 +1,5 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Product entity representing produkt table from database.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,7 +22,7 @@ import java.util.List;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "nazov")
@@ -46,9 +48,23 @@ public class Product implements Serializable {
     @Column(name = "deleted_at")
     private Timestamp deleted;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "product")
     private List<Ean> eans;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id != null ? id.equals(product.id) : product.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
     public Product(String name) {
         this.name = name;
