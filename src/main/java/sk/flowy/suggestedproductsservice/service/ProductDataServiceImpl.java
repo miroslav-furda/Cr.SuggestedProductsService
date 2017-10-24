@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 @Log4j
-public class ProductDataImpl implements ProductDataService {
+public class ProductDataServiceImpl implements ProductDataService {
 
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductDataImpl(ProductRepository productRepository) {
+    public ProductDataServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
