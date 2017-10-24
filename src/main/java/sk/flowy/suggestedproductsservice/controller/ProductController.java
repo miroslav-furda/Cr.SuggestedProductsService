@@ -28,7 +28,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping("/api")
 @Log4j
-@Api(value="product-controller", description="This micro service represent create new product")
+@Api(value="product-controller", description="This micro service represent create new product or find product via ean number")
 public class ProductController {
 
     private final ProductDataService productDataService;
@@ -54,6 +54,7 @@ public class ProductController {
         return new ResponseEntity<>(product, OK);
     }
 
+    @ApiOperation(value = "Find product via ean number")
     @RequestMapping(value = "/product/{ean}", method = GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptProduct> getProductByEan(@PathVariable("ean") String ean) {
         log.info("Searching for product by ean " + ean);

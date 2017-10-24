@@ -32,7 +32,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Suggested products service")
-                .description("These services represent endpoint microservices.")
+                .description("Represent REST endpoint microservice.")
                 .license("Codexa License")
                 .licenseUrl("https://codexa.io/").version("1.0").build();
     }
