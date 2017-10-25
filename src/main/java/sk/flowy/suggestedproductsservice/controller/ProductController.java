@@ -1,5 +1,7 @@
 package sk.flowy.suggestedproductsservice.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping("/api")
 @Log4j
+@Api(value="product-controller", description="This micro service represent create new product or find product via ean number")
 public class ProductController {
 
     private final ProductDataService productDataService;
@@ -43,6 +46,7 @@ public class ProductController {
         this.eanService = eanService;
     }
 
+    @ApiOperation(value = "Create new product")
     @RequestMapping(value = "/product", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> createNewProduct(@RequestBody NewProduct newProduct) {
         log.info("Creating new product " + newProduct);
@@ -50,6 +54,7 @@ public class ProductController {
         return new ResponseEntity<>(product, OK);
     }
 
+    @ApiOperation(value = "Find product via ean number")
     @RequestMapping(value = "/product/{ean}", method = GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptProduct> getProductByEan(@PathVariable("ean") String ean) {
         log.info("Searching for product by ean " + ean);
