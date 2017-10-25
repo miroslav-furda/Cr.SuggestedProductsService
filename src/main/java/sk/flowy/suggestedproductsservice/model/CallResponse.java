@@ -1,4 +1,4 @@
-package sk.flowy.suggestedproductsservice.security;
+package sk.flowy.suggestedproductsservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class CallResponse {
     private String success;
     private String error;
 
-    boolean hasError() {
+    public boolean hasError() {
         return error != null;
     }
 }

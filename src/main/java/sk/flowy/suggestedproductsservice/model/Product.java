@@ -1,6 +1,5 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +52,9 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "product")
     private List<Ean> eans;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Supplier> suppliers;
 
     @Override
     public boolean equals(Object o) {

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+import sk.flowy.suggestedproductsservice.model.CallResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

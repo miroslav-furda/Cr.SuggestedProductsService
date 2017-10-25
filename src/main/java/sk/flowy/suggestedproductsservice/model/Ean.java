@@ -1,9 +1,7 @@
 package sk.flowy.suggestedproductsservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
