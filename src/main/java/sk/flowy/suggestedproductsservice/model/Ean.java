@@ -1,6 +1,7 @@
 package sk.flowy.suggestedproductsservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Ean implements Serializable {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(notes = "The database generated ean ID")
     private Long id;
 
     @Column(name = "typ")

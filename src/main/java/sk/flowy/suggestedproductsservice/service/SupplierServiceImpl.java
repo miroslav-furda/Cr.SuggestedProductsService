@@ -34,7 +34,7 @@ public class SupplierServiceImpl implements SupplierService {
         Product product = productRepository.findOne(productId);
         Supplier supplier = supplierRepository.findOne(supplierId);
 
-        if ((product == null) || (supplier == null)) {
+        if (product == null || supplier == null) {
             return new CallResponse(null, "Wrong input!");
         }
 

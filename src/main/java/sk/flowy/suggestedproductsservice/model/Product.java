@@ -1,5 +1,6 @@
 package sk.flowy.suggestedproductsservice.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(notes = "The database generated product ID")
     private Long id;
 
     @Column(name = "nazov")

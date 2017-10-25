@@ -134,6 +134,14 @@ public class SecurityFilterTest {
         verify(filterChain, times(1)).doFilter(servletRequest, servletResponse);
     }
 
+    @Test
+    public void if_request_from_customer_consists_swagger_path_security_filter_approved_this_request() throws IOException, ServletException {
+        when(((HttpServletRequest) servletRequest).getRequestURI()).thenReturn("/swagger");
+        securityFilter.doFilter(servletRequest, servletResponse, filterChain);
+
+        verify(filterChain, times(1)).doFilter(servletRequest, servletResponse);
+    }
+
     @Configuration
     static class TestConfiguration {
 
