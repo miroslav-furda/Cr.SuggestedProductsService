@@ -54,12 +54,11 @@ public class ProductController {
     @ApiOperation(value = "Create new product")
     @RequestMapping(value = "/product", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> createNewProduct(@RequestBody NewProduct newProduct) {
-        log.info("Creating new product " + newProduct);
-
         if (newProduct.getEan() == null || StringUtils.isNotEmpty(newProduct.getName()) || StringUtils.isNotEmpty(newProduct.getSupplier())) {
             throw new ProductNotSavedException();
         }
 
+        log.info(String.format("Creating new product %s", newProduct));
         Product product = productDataService.setDataForProductAndSaveIntoDatabase(newProduct);
         return new ResponseEntity<>(product, OK);
     }
@@ -67,7 +66,7 @@ public class ProductController {
     @ApiOperation(value = "Find product via ean number")
     @RequestMapping(value = "/product/{ean}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptProduct> getProductByEan(@PathVariable("ean") String ean) {
-        log.info("Searching for product by ean " + ean);
+        log.info(String.format("Searching for product by ean %s", ean));
         ReceiptProduct product = eanService.getProductByEan(ean);
 
         if (product == null) {
