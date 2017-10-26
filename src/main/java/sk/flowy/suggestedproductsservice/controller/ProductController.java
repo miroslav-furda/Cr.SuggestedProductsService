@@ -3,6 +3,7 @@ package sk.flowy.suggestedproductsservice.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sk.flowy.suggestedproductsservice.exceptions.ProductNotFoundException;
+import sk.flowy.suggestedproductsservice.exceptions.ProductNotSavedException;
 import sk.flowy.suggestedproductsservice.model.*;
 import sk.flowy.suggestedproductsservice.service.EanService;
 import sk.flowy.suggestedproductsservice.service.ProductDataService;
@@ -27,7 +29,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping("/api")
 @Log4j
-@Api(value="product-controller", description="This micro service represent create new product or find product via ean number")
+@Api(value = "product-controller", description = "Micro service for creating new product and finding product via ean number.")
 public class ProductController {
 
     private final ProductDataService productDataService;
@@ -52,7 +54,11 @@ public class ProductController {
     @ApiOperation(value = "Create new product")
     @RequestMapping(value = "/product", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> createNewProduct(@RequestBody NewProduct newProduct) {
-        log.info("Creating new product " + newProduct);
+        if (newProduct.getEan() == null || StringUtils.isNotEmpty(newProduct.getName()) || StringUtils.isNotEmpty(newProduct.getSupplier())) {
+            throw new ProductNotSavedException();
+        }
+
+        log.info(String.format("Creating new product %s", newProduct));
         Product product = productDataService.setDataForProductAndSaveIntoDatabase(newProduct);
         return new ResponseEntity<>(product, OK);
     }
@@ -60,7 +66,7 @@ public class ProductController {
     @ApiOperation(value = "Find product via ean number")
     @RequestMapping(value = "/product/{ean}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptProduct> getProductByEan(@PathVariable("ean") String ean) {
-        log.info("Searching for product by ean " + ean);
+        log.info(String.format("Searching for product by ean %s", ean));
         ReceiptProduct product = eanService.getProductByEan(ean);
 
         if (product == null) {
@@ -73,7 +79,7 @@ public class ProductController {
     @RequestMapping(value = "/product/supplier", method = POST, produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Connects product with supplier")
     public ResponseEntity<CallResponse> addProductToSupplier(@RequestBody ProductSupplierWrapper
-                                                                      productSupplierWrapper) {
+                                                                     productSupplierWrapper) {
         CallResponse callResponse = supplierService.addProductToSupplier(productSupplierWrapper.getProductId(),
                 productSupplierWrapper.getDelivererId());
 

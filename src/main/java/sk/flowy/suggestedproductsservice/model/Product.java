@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -28,6 +30,8 @@ public class Product implements Serializable {
     private Long id;
 
     @Column(name = "nazov")
+    @NotNull
+    @NotEmpty
     private String name;
 
     @Column(name = "nazov_clear")

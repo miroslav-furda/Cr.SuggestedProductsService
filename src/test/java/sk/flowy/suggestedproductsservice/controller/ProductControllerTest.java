@@ -75,12 +75,11 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void setProductIntoDatabaseAfterCalledRestPoint() throws Exception {
+    public void if_product_is_not_set_name_then_return_bad_request() throws Exception {
         Product productMock = mock(Product.class);
         NewProduct newProduct = new NewProduct();
-        newProduct.setName("Abc");
         newProduct.setEan(Arrays.asList("1", "2"));
-        newProduct.setSupplier(123);
+        newProduct.setSupplier("123");
         newProduct.setPicture("picture");
 
         when(productDataService.setDataForProductAndSaveIntoDatabase(newProduct)).thenReturn(productMock);
@@ -88,7 +87,7 @@ public class ProductControllerTest {
         mvc.perform(post("/api/product").header(AUTHORIZATION, VALID_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(newProduct)))
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
