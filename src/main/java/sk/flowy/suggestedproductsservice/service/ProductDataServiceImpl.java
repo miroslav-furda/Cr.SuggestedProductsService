@@ -3,7 +3,10 @@ package sk.flowy.suggestedproductsservice.service;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.flowy.suggestedproductsservice.model.*;
+import sk.flowy.suggestedproductsservice.model.Ean;
+import sk.flowy.suggestedproductsservice.model.NewProduct;
+import sk.flowy.suggestedproductsservice.model.Product;
+import sk.flowy.suggestedproductsservice.model.Supplier;
 import sk.flowy.suggestedproductsservice.repository.ProductRepository;
 import sk.flowy.suggestedproductsservice.repository.SupplierRepository;
 
@@ -27,27 +30,36 @@ public class ProductDataServiceImpl implements ProductDataService {
     @Override
     public Product setDataForProductAndSaveIntoDatabase(NewProduct newProduct) {
         Product product = new Product();
-        product.setName(newProduct.getName());
         product.setActive(1);
-
         Ean ean;
         List<Ean> eans = new ArrayList<>();
-        for (String eanValue : newProduct.getEan()) {
-            ean = new Ean();
-            ean.setValue(eanValue);
-            ean.setType("single");
-            ean.setProduct(product);
-            eans.add(ean);
+
+        if (newProduct.getName() != null) {
+            product.setName(newProduct.getName());
         }
-        product.setEans(eans);
+        if (newProduct.getEan() != null) {
+            for (String eanValue : newProduct.getEan()) {
+                ean = new Ean();
+                ean.setValue(eanValue);
+                ean.setType("single");
+                ean.setProduct(product);
+                eans.add(ean);
+            }
+            product.setEans(eans);
+        }
+
+
         Supplier supplier = supplierRepository.findByName(newProduct.getSupplier());
 
         if (supplier != null) {
             product.setSuppliers(Arrays.asList(supplier));
         }
 
-        product = productRepository.save(product);
-        log.info("Product was saved into database");
-        return product;
+        try {
+            return productRepository.save(product);
+        } catch (IllegalArgumentException e) {
+            log.error("Product can't save in database", e);
+            return null;
+        }
     }
 }

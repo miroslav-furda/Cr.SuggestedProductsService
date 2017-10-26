@@ -75,7 +75,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void setProductIntoDatabaseAfterCalledRestPoint() throws Exception {
+    public void if_roduct_is_not_save_in_database_and_return_product_null_then_return_bad_request() throws Exception {
         Product productMock = mock(Product.class);
         NewProduct newProduct = new NewProduct();
         newProduct.setName("Abc");
@@ -88,7 +88,7 @@ public class ProductControllerTest {
         mvc.perform(post("/api/product").header(AUTHORIZATION, VALID_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(newProduct)))
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
 
     @Test

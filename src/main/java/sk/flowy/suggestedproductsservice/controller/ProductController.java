@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sk.flowy.suggestedproductsservice.exceptions.ProductNotFoundException;
+import sk.flowy.suggestedproductsservice.exceptions.ProductNotSavedException;
 import sk.flowy.suggestedproductsservice.model.*;
 import sk.flowy.suggestedproductsservice.service.EanService;
 import sk.flowy.suggestedproductsservice.service.ProductDataService;
@@ -27,7 +28,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping("/api")
 @Log4j
-@Api(value="product-controller", description="This micro service represent create new product or find product via ean number")
+@Api(value = "product-controller", description = "This micro service represent create new product or find product via ean number")
 public class ProductController {
 
     private final ProductDataService productDataService;
@@ -54,6 +55,10 @@ public class ProductController {
     public ResponseEntity<Product> createNewProduct(@RequestBody NewProduct newProduct) {
         log.info("Creating new product " + newProduct);
         Product product = productDataService.setDataForProductAndSaveIntoDatabase(newProduct);
+        if (product == null) {
+            log.warn("Product can't save in database.");
+            throw new ProductNotSavedException();
+        }
         return new ResponseEntity<>(product, OK);
     }
 
@@ -73,7 +78,7 @@ public class ProductController {
     @RequestMapping(value = "/product/supplier", method = POST, produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Connects product with supplier")
     public ResponseEntity<CallResponse> addProductToSupplier(@RequestBody ProductSupplierWrapper
-                                                                      productSupplierWrapper) {
+                                                                     productSupplierWrapper) {
         CallResponse callResponse = supplierService.addProductToSupplier(productSupplierWrapper.getProductId(),
                 productSupplierWrapper.getDelivererId());
 
