@@ -54,7 +54,7 @@ public class ProductController {
     @ApiOperation(value = "Create new product")
     @RequestMapping(value = "/product", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> createNewProduct(@RequestBody NewProduct newProduct) {
-        if (newProduct.getEan() == null || StringUtils.isNotEmpty(newProduct.getName()) || StringUtils.isNotEmpty(newProduct.getSupplier())) {
+        if (newProduct.getEan() == null || StringUtils.isEmpty(newProduct.getName()) || StringUtils.isEmpty(newProduct.getSupplier())) {
             throw new ProductNotSavedException();
         }
 
