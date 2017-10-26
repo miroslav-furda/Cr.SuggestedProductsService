@@ -75,10 +75,9 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void if_roduct_is_not_save_in_database_and_return_product_null_then_return_bad_request() throws Exception {
+    public void if_product_is_not_set_name_then_return_bad_request() throws Exception {
         Product productMock = mock(Product.class);
         NewProduct newProduct = new NewProduct();
-        newProduct.setName("Abc");
         newProduct.setEan(Arrays.asList("1", "2"));
         newProduct.setSupplier("123");
         newProduct.setPicture("picture");

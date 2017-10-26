@@ -3,6 +3,7 @@ package sk.flowy.suggestedproductsservice.service;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.flowy.suggestedproductsservice.exceptions.ProductNotSavedException;
 import sk.flowy.suggestedproductsservice.model.Ean;
 import sk.flowy.suggestedproductsservice.model.NewProduct;
 import sk.flowy.suggestedproductsservice.model.Product;
@@ -34,20 +35,16 @@ public class ProductDataServiceImpl implements ProductDataService {
         Ean ean;
         List<Ean> eans = new ArrayList<>();
 
-        if (newProduct.getName() != null) {
-            product.setName(newProduct.getName());
-        }
-        if (newProduct.getEan() != null) {
-            for (String eanValue : newProduct.getEan()) {
-                ean = new Ean();
-                ean.setValue(eanValue);
-                ean.setType("single");
-                ean.setProduct(product);
-                eans.add(ean);
-            }
-            product.setEans(eans);
+        for (String eanValue : newProduct.getEan()) {
+            ean = new Ean();
+            ean.setValue(eanValue);
+            ean.setType("single");
+            ean.setProduct(product);
+            eans.add(ean);
         }
 
+        product.setEans(eans);
+        product.setName(newProduct.getName());
 
         Supplier supplier = supplierRepository.findByName(newProduct.getSupplier());
 
@@ -59,7 +56,7 @@ public class ProductDataServiceImpl implements ProductDataService {
             return productRepository.save(product);
         } catch (IllegalArgumentException e) {
             log.error("Product can't save in database", e);
-            return null;
+            throw new ProductNotSavedException();
         }
     }
 }
