@@ -3,12 +3,12 @@ package sk.flowy.suggestedproductsservice.service;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.flowy.suggestedproductsservice.model.Ean;
-import sk.flowy.suggestedproductsservice.model.NewProduct;
-import sk.flowy.suggestedproductsservice.model.Product;
+import sk.flowy.suggestedproductsservice.model.*;
 import sk.flowy.suggestedproductsservice.repository.ProductRepository;
+import sk.flowy.suggestedproductsservice.repository.SupplierRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,10 +16,12 @@ import java.util.List;
 public class ProductDataServiceImpl implements ProductDataService {
 
     private final ProductRepository productRepository;
+    private final SupplierRepository supplierRepository;
 
     @Autowired
-    public ProductDataServiceImpl(ProductRepository productRepository) {
+    public ProductDataServiceImpl(ProductRepository productRepository, SupplierRepository supplierRepository) {
         this.productRepository = productRepository;
+        this.supplierRepository = supplierRepository;
     }
 
     @Override
@@ -38,6 +40,13 @@ public class ProductDataServiceImpl implements ProductDataService {
             eans.add(ean);
         }
         product.setEans(eans);
+        Supplier supplier = supplierRepository.findByName(newProduct.getSupplier());
+
+        if (supplier != null) {
+            product.setSuppliers(Arrays.asList(supplier));
+            supplierRepository.save(supplier);
+        }
+
         product = productRepository.save(product);
         log.info("Product was saved into database");
         return product;

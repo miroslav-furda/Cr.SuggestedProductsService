@@ -80,7 +80,7 @@ public class ProductControllerTest {
         NewProduct newProduct = new NewProduct();
         newProduct.setName("Abc");
         newProduct.setEan(Arrays.asList("1", "2"));
-        newProduct.setSupplier(123);
+        newProduct.setSupplier("123");
         newProduct.setPicture("picture");
 
         when(productDataService.setDataForProductAndSaveIntoDatabase(newProduct)).thenReturn(productMock);

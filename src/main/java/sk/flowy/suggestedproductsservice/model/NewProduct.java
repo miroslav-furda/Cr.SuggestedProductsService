@@ -12,6 +12,6 @@ public class NewProduct {
 
     private List<String> ean;
     private String name;
-    private Integer supplier;
+    private String supplier;
     private String picture;
 }
