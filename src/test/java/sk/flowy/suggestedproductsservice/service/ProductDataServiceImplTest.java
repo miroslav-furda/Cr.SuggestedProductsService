@@ -62,7 +62,6 @@ public class ProductDataServiceImplTest {
         productWithSupplier.setSuppliers(singletonList(supplier));
 
         when(supplierRepository.findByName(newProduct.getSupplier())).thenReturn(supplier);
-        when(supplierRepository.save(supplier)).thenReturn(supplier);
         when(productRepository.save(product)).thenReturn(productWithSupplier);
 
         Product productWithData = productDataService.setDataForProductAndSaveIntoDatabase(newProduct);

@@ -44,7 +44,6 @@ public class ProductDataServiceImpl implements ProductDataService {
 
         if (supplier != null) {
             product.setSuppliers(Arrays.asList(supplier));
-            supplierRepository.save(supplier);
         }
 
         product = productRepository.save(product);
