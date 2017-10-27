@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReceiptProduct implements Serializable {
 
+    private static final long serialVersionUID = 9092612321248884295L;
     private Long id;
     private String name;
     private List<Ean> eans;

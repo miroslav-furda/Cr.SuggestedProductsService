@@ -22,6 +22,7 @@ import java.util.Date;
 @Table(name = "ean")
 public class Ean implements Serializable {
 
+    private static final long serialVersionUID = 5825148543795158789L;
     @Id
     @GeneratedValue
     @ApiModelProperty(notes = "The database generated ean ID")

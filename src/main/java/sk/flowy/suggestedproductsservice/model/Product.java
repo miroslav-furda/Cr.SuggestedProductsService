@@ -24,6 +24,7 @@ import java.util.List;
 @Table(name = "produkt")
 public class Product implements Serializable {
 
+    private static final long serialVersionUID = -1678839865508033288L;
     @Id
     @GeneratedValue
     @ApiModelProperty(notes = "The database generated product ID")
