@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>suggested-products-service</name>
-	<description>Suggested products for Labas</description>
+	<description>Suggested products</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
